@@ -1,0 +1,18 @@
+{
+	"node": "n8n-nodes-apexhome",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Home Server", "Home Dashboard", "Self Hosted"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://github.com/Sanjeet990/n8n-nodes-apexhome?tab=readme-ov-file#credentials"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://github.com/Sanjeet990/n8n-nodes-apexhome?tab=readme-ov-file"
+			}
+		]
+	}
+}

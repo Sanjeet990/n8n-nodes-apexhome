@@ -7,7 +7,7 @@ import { getIssues } from './listSearch/getIssues';
 
 export class GithubIssues implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'GitHub Issues',
+		displayName: 'Apex Home',
 		name: 'githubIssues',
 		icon: { light: 'file:../../icons/github.svg', dark: 'file:../../icons/github.dark.svg' },
 		group: ['input'],
@@ -15,7 +15,7 @@ export class GithubIssues implements INodeType {
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Consume issues from the GitHub API',
 		defaults: {
-			name: 'GitHub Issues',
+			name: 'Apex Home',
 		},
 		usableAsTool: true,
 		inputs: [NodeConnectionTypes.Main],
