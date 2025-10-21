@@ -8,7 +8,7 @@ import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
 export class ApexHome implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'ApexHome',
+		displayName: 'Apex Home Actions',
 		name: 'apexhome',
 		icon: { light: 'file:apexhome.svg', dark: 'file:apexhome.dark.svg' },
 		group: ['input'],
@@ -16,7 +16,7 @@ export class ApexHome implements INodeType {
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Interact with Apex Home API',
 		defaults: {
-			name: 'ApexHome',
+			name: 'Apex Home Actions',
 		},
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],

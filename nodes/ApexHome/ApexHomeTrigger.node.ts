@@ -12,16 +12,17 @@ import { NodeConnectionTypes } from 'n8n-workflow';
 
 export class ApexHomeTrigger implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'ApexHome Trigger',
+		displayName: 'Apex Home Trigger',
 		name: 'apexHomeTrigger',
 		icon: { light: 'file:apexhome.svg', dark: 'file:apexhome.dark.svg' },
 		group: ['trigger'],
 		version: 1,
-		description: 'Triggers when ApexHome events occur',
+		subtitle: 'Apex Home Webhook Trigger',
+		description: 'Triggers when Apex Home events occur',
 		eventTriggerDescription: 'Waiting for you to call the webhook URL',
 		activationMessage: 'You can now make calls to your production webhook URL.',
 		defaults: {
-			name: 'ApexHome Trigger',
+			name: 'Apex Home Trigger',
 		},
 		inputs: [],
 		outputs: [NodeConnectionTypes.Main, NodeConnectionTypes.Main, NodeConnectionTypes.Main],
