@@ -1,240 +1,77 @@
 import type {
-	IDataObject,
-	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
 	IWebhookFunctions,
 	IWebhookResponseData,
-	ITriggerFunctions,
-	ITriggerResponse,
 } from 'n8n-workflow';
 import { NodeConnectionTypes } from 'n8n-workflow';
+import * as fs from 'fs';
+import * as path from 'path';
 
 export class ApexHomeTrigger implements INodeType {
-	description: INodeTypeDescription = {
-		displayName: 'Apex Home Trigger',
-		name: 'apexHomeTrigger',
-		icon: { light: 'file:apexhome.svg', dark: 'file:apexhome.dark.svg' },
-		group: ['trigger'],
-		version: 1,
-		subtitle: 'Apex Home Webhook Trigger',
-		description: 'Triggers when Apex Home events occur',
-		eventTriggerDescription: 'Waiting for you to call the webhook URL',
-		activationMessage: 'You can now make calls to your production webhook URL.',
-		defaults: {
-			name: 'Apex Home Trigger',
-		},
-		inputs: [],
-		outputs: [NodeConnectionTypes.Main, NodeConnectionTypes.Main, NodeConnectionTypes.Main],
-		outputNames: ['User Created', 'User Updated', 'User Removed'],
-		credentials: [
-			{
-				name: 'apexHomeApi',
-				required: false,
-			},
-		],
-		webhooks: [
-			{
-				name: 'default',
-				httpMethod: 'POST',
-				responseMode: 'onReceived',
-				path: 'webhook',
-			},
-		],
-		properties: [
-			{
-				displayName: 'Events',
-				name: 'events',
-				type: 'multiOptions',
-				options: [
-					{
-						name: 'User Created',
-						value: 'user.created',
-						description: 'Trigger when a user is created',
-					},
-					{
-						name: 'User Updated',
-						value: 'user.updated',
-						description: 'Trigger when a user is updated',
-					},
-					{
-						name: 'User Removed',
-						value: 'user.removed',
-						description: 'Trigger when a user is removed',
-					},
-				],
-				default: ['user.created', 'user.updated', 'user.removed'],
-				description: 'The events to listen for',
-			},
-			{
-				displayName: 'Options',
-				name: 'options',
-				type: 'collection',
-				placeholder: 'Add Option',
-				default: {},
-				options: [
-					{
-						displayName: 'Response Status Code',
-						name: 'responseStatusCode',
-						type: 'number',
-						typeOptions: {
-							minValue: 100,
-							maxValue: 599,
-						},
-						default: 200,
-						description: 'The HTTP status code to return',
-					},
-					{
-						displayName: 'Response Headers',
-						name: 'responseHeaders',
-						placeholder: 'Add Header',
-						description: 'The headers to return in the response',
-						type: 'fixedCollection',
-						typeOptions: {
-							multipleValues: true,
-						},
-						default: {},
-						options: [
-							{
-								name: 'entries',
-								displayName: 'Entries',
-								values: [
-									{
-										displayName: 'Name',
-										name: 'name',
-										type: 'string',
-										default: '',
-										description: 'Name of the header',
-									},
-									{
-										displayName: 'Value',
-										name: 'value',
-										type: 'string',
-										default: '',
-										description: 'Value of the header',
-									},
-								],
-							},
-						],
-					},
-					{
-						displayName: 'Response Body',
-						name: 'responseBody',
-						type: 'string',
-						default: '',
-						placeholder: '{"success": true}',
-						description: 'The body to return in the response',
-					},
-				],
-			},
-		],
-	};
+	description: INodeTypeDescription;
 
-	async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
-		const options = this.getNodeParameter('options', {}) as IDataObject;
-		const events = this.getNodeParameter('events') as string[];
-		const body = this.getBodyData();
-		const headers = this.getHeaderData();
-		const query = this.getQueryData();
+	constructor() {
+		const eventsFilePath = path.join(__dirname, 'events.json');
+		const eventsData = JSON.parse(fs.readFileSync(eventsFilePath, 'utf-8'));
+		const outputNames = eventsData.events.map((event: { name: string }) => event.name);
 
-		// Extract webhook data
-		const eventName = body.eventName as string;
-		const eventData = body.eventData as IDataObject;
-		const eventOccuredOn = body.eventOccuredOn as string;
-
-		// Check if the event is one we're listening for
-		if (!events.includes(eventName)) {
-			// Return a 200 status but don't trigger the workflow
-			return {
-				workflowData: [[]],
-				webhookResponse: {
-					status: 200,
-					body: { message: 'Event not subscribed' },
+		const outputCount = outputNames.length;
+		this.description = {
+			displayName: 'Apex Home Trigger',
+			name: 'apexHomeTrigger',
+			icon: { light: 'file:apexhome.svg', dark: 'file:apexhome.dark.svg' },
+			group: ['trigger'],
+			version: 1,
+			subtitle: 'Apex Home Webhook Trigger',
+			description: 'Triggers when Apex Home events occur',
+			eventTriggerDescription: 'Waiting for you to call the webhook URL',
+			activationMessage: 'You can now make calls to your production webhook URL.',
+			defaults: {
+				name: 'Apex Home Trigger',
+			},
+			inputs: [],
+			outputs: Array(outputCount).fill(NodeConnectionTypes.Main),
+			outputNames: outputNames as any, // Cast to any to bypass type-checking
+			webhooks: [
+				{
+					name: 'default',
+					httpMethod: 'POST',
+					responseMode: 'onReceived',
+					path: 'webhook',
 				},
-			};
-		}
-
-		// Prepare the output data
-		const outputData = {
-			eventName,
-			eventData,
-			eventOccuredOn,
-			headers,
-			query,
-			body,
-		};
-
-		// Determine which output to use based on event name
-		let outputIndex = 0;
-		const workflowData: INodeExecutionData[][] = [[], [], []]; // Three empty arrays for three outputs
-
-		switch (eventName) {
-			case 'user.created':
-				outputIndex = 0;
-				break;
-			case 'user.updated':
-				outputIndex = 1;
-				break;
-			case 'user.removed':
-				outputIndex = 2;
-				break;
-			default:
-				// If unknown event, don't trigger any output
-				return {
-					workflowData: [[], [], []],
-					webhookResponse: {
-						status: 200,
-						body: { message: 'Unknown event type' },
-					},
-				};
-		}
-
-		// Add data to the appropriate output
-		workflowData[outputIndex] = [{ json: outputData }];
-
-		// Prepare response
-		let responseStatusCode = 200;
-		let responseHeaders: Record<string, any> = {};
-		let responseBody: any = { success: true, message: 'Event received' };
-
-		if (options.responseStatusCode) {
-			responseStatusCode = options.responseStatusCode as number;
-		}
-
-		if (options.responseHeaders) {
-			const entries = (options.responseHeaders as IDataObject).entries as IDataObject[];
-			if (entries) {
-				for (const entry of entries) {
-					responseHeaders[entry.name as string] = entry.value;
-				}
-			}
-		}
-
-		if (options.responseBody) {
-			try {
-				responseBody = JSON.parse(options.responseBody as string);
-			} catch (error) {
-				responseBody = options.responseBody as string;
-			}
-		}
-
-		return {
-			workflowData: workflowData,
-			webhookResponse: {
-				status: responseStatusCode,
-				headers: responseHeaders,
-				body: responseBody,
-			},
+			],
+			properties: [],
 		};
 	}
 
-	async trigger(this: ITriggerFunctions): Promise<ITriggerResponse> {
-		// For webhook triggers, we don't need to implement this method
-		// as the webhook method handles the actual triggering
+	async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
+
+		const eventsFilePath = path.join(__dirname, 'events.json');
+		const eventsData = JSON.parse(fs.readFileSync(eventsFilePath, 'utf-8'));
+		const allEvents = eventsData.events.map((event: { id: string }) => event.id);
+
+		const body = this.getBodyData();
+
+		// Extract webhook data
+		const eventName = body.eventName as string;
+
+		if(!allEvents.includes(eventName)) {
+			return {
+				noWebhookResponse: true,
+			};
+		}
+
+		//find the index of the event
+		const eventIndex = allEvents.indexOf(eventName);
+
+		//send output on that index only, others will have empty arrays
+		const outputData = Array(allEvents.length).fill([]);
+		outputData[eventIndex] = this.helpers.returnJsonArray(body);
+
 		return {
-			closeFunction: async () => {
-				// Cleanup if needed
-			},
+			workflowData: outputData,
 		};
+	
 	}
 }
