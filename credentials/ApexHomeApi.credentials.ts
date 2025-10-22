@@ -1,14 +1,17 @@
 import type {
 	ICredentialType,
 	INodeProperties,
+	Icon
 } from 'n8n-workflow';
 
 export class ApexHomeApi implements ICredentialType {
 	name = 'apexHomeApi';
 
-	displayName = 'Apex Home API Key';
+	displayName = 'Apex Home API Key API';
 
 	documentationUrl = 'https://github.com/Sanjeet990/n8n-nodes-apexhome?tab=readme-ov-file#credentials';
+	
+    icon: Icon = 'file:shared/apexhome.svg';
 
 	properties: INodeProperties[] = [
 		{
@@ -30,4 +33,14 @@ export class ApexHomeApi implements ICredentialType {
 			required: true,
 		},
 	];
+
+	test = {
+		request: {
+			method: 'GET' as const,
+			url: '={{$credentials.url}}/api/test',
+			headers: {
+				Authorization: 'Bearer {{$credentials.apiKey}}',
+			},
+		},
+	};
 }

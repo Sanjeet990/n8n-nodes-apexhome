@@ -6,7 +6,7 @@ import type {
 } from 'n8n-workflow';
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
-export class ApexHome implements INodeType {
+export class Apexhome implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Apex Home Actions',
 		name: 'apexhome',
@@ -312,6 +312,7 @@ export class ApexHome implements INodeType {
 				},
 			},
 		],
+		usableAsTool: true,
 	};
 
 	// The function below is responsible for actually doing whatever this node
@@ -330,8 +331,7 @@ export class ApexHome implements INodeType {
 				const operation = this.getNodeParameter('operation', itemIndex) as string;
 				const apexHomeUrl = credentials.url as string;
 
-				let response;
-				let requestBody: any;
+				let requestBody: NotificationRequestBody | UserRequestBody;
 				let endpoint: string;
 
 				if (resource === 'notification' && operation === 'send') {
@@ -393,7 +393,7 @@ export class ApexHome implements INodeType {
 				}
 
 				// Make HTTP request
-				response = await this.helpers.httpRequest({
+				const response = await this.helpers.httpRequest({
 					method: 'POST',
 					url: `${apexHomeUrl.replace(/\/$/, '')}${endpoint}`,
 					headers: {
@@ -439,4 +439,26 @@ export class ApexHome implements INodeType {
 
 		return [returnData];
 	}
+}
+
+// Define a type for the request body
+interface NotificationRequestBody {
+	appName: string;
+	appIcon?: string;
+	title: string;
+	text?: string;
+	html?: string;
+	type: string;
+	tags: string[];
+	actionButton?: {
+		actionName: string;
+		actionUrl: string;
+	};
+}
+
+interface UserRequestBody {
+	username: string;
+	password: string;
+	fullName: string;
+	siteName: string;
 }

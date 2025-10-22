@@ -1,15 +1,15 @@
 {
 	"name": "n8n-nodes-apexhome",
 	"version": "0.1.0",
-	"description": "",
+	"description": "The Apex Home node for n8n allows seamless integration with Apex Home dashboard enabling users to automate and control their instance of Apex Home directly from n8n workflows.",
 	"license": "MIT",
 	"homepage": "",
 	"keywords": [
 		"n8n-community-node-package"
 	],
 	"author": {
-		"name": "",
-		"email": ""
+		"name": "Sanjeet990",
+		"email": "sanjeet.pathak990@gmail.com"
 	},
 	"repository": {
 		"type": "git",
@@ -34,7 +34,7 @@
 			"dist/credentials/ApexHomeApi.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/ApexHome/ApexHome.node.js",
+			"dist/nodes/ApexHome/Apexhome.node.js",
 			"dist/nodes/ApexHome/ApexHomeTrigger.node.js"
 		]
 	},
