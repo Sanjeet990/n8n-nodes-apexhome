@@ -89,6 +89,10 @@
             "name": "Notification Sent"
         },
         {
+            "id": "notification_received",
+            "name": "Notification Received"
+        },
+        {
             "id": "notification_cleared",
             "name": "Notification Cleared"
         },
