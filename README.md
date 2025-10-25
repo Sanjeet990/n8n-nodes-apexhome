@@ -32,7 +32,7 @@ Apex Home is a self-hosted, event-driven application dashboard for managing and 
 
 This n8n node allows you to integrate Apex Home with your workflows and automate interactions:
 
-- Supports 52+ events (and more coming). Examples: `user_created`, `page_added`, `task_completed`, etc.
+- Supports 52+ events (and more coming). Examples: `user.created`, `page.added`, `task_completed`, etc.
 - Trigger workflows based on Apex Home events.
 - Send notifications and automate actions within Apex Home.
 - Manage dashboards, services, and notifications directly from n8n.
