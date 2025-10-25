@@ -12,6 +12,10 @@
       {
         "name": "User",
         "value": "user"
+      },
+      {
+        "name": "Page",
+        "value": "page"
       }
     ],
     "default": "notification"
@@ -52,6 +56,26 @@
         "value": "create",
         "description": "Create a user",
         "action": "Create a user"
+      }
+    ],
+    "default": "create"
+  },
+  {
+    "displayName": "Operation",
+    "name": "operation",
+    "type": "options",
+    "noDataExpression": true,
+    "displayOptions": {
+      "show": {
+        "resource": ["page"]
+      }
+    },
+    "options": [
+      {
+        "name": "Add",
+        "value": "create",
+        "description": "Add a page",
+        "action": "Add a page"
       }
     ],
     "default": "create"
@@ -280,5 +304,59 @@
         "operation": ["create"]
       }
     }
+  },
+  {
+    "displayName": "Page Title",
+    "name": "pageTitle",
+    "type": "string",
+    "default": "",
+    "placeholder": "My Awesome Page",
+    "description": "Title of the page",
+    "required": true,
+    "displayOptions": {
+      "show": {
+        "resource": ["page"],
+        "operation": ["create"]
+      }
+    }
+  },
+  {
+    "displayName": "Page Content",
+    "name": "pageContent",
+    "type": "string",
+    "default": "",
+    "placeholder": "<h1>Welcome to my page</h1>",
+    "description": "HTML content of the page",
+    "required": true,
+    "displayOptions": {
+      "show": {
+        "resource": ["page"],
+        "operation": ["create"]
+      }
+    }
+  },
+  {
+    "displayName": "Publish",
+    "name": "publish",
+    "type": "options",
+    "options": [
+      {
+        "name": "No",
+        "value": false
+      },
+      {
+        "name": "Yes",
+        "value": true
+      }
+    ],
+    "default": true,
+    "description": "Whether the page should be published",
+    "displayOptions": {
+      "show": {
+        "resource": ["page"],
+        "operation": ["create"]
+      }
+    }
   }
+  
 ]
