@@ -1,0 +1,284 @@
+[
+  {
+    "displayName": "Resource",
+    "name": "resource",
+    "type": "options",
+    "noDataExpression": true,
+    "options": [
+      {
+        "name": "Notification",
+        "value": "notification"
+      },
+      {
+        "name": "User",
+        "value": "user"
+      }
+    ],
+    "default": "notification"
+  },
+  {
+    "displayName": "Operation",
+    "name": "operation",
+    "type": "options",
+    "noDataExpression": true,
+    "displayOptions": {
+      "show": {
+        "resource": ["notification"]
+      }
+    },
+    "options": [
+      {
+        "name": "Send",
+        "value": "send",
+        "description": "Send a notification",
+        "action": "Send a notification"
+      }
+    ],
+    "default": "send"
+  },
+  {
+    "displayName": "Operation",
+    "name": "operation",
+    "type": "options",
+    "noDataExpression": true,
+    "displayOptions": {
+      "show": {
+        "resource": ["user"]
+      }
+    },
+    "options": [
+      {
+        "name": "Create",
+        "value": "create",
+        "description": "Create a user",
+        "action": "Create a user"
+      }
+    ],
+    "default": "create"
+  },
+  {
+    "displayName": "App Name",
+    "name": "appName",
+    "type": "string",
+    "default": "",
+    "placeholder": "My App",
+    "description": "Name of the application sending the notification",
+    "required": true,
+    "displayOptions": {
+      "show": {
+        "resource": ["notification"],
+        "operation": ["send"]
+      }
+    }
+  },
+  {
+    "displayName": "App Icon",
+    "name": "appIcon",
+    "type": "string",
+    "default": "",
+    "placeholder": "https://example.com/icon.png",
+    "description": "URL to the application icon",
+    "displayOptions": {
+      "show": {
+        "resource": ["notification"],
+        "operation": ["send"]
+      }
+    }
+  },
+  {
+    "displayName": "Title",
+    "name": "title",
+    "type": "string",
+    "default": "",
+    "placeholder": "Notification Title",
+    "description": "Title of the notification",
+    "required": true,
+    "displayOptions": {
+      "show": {
+        "resource": ["notification"],
+        "operation": ["send"]
+      }
+    }
+  },
+  {
+    "displayName": "Text",
+    "name": "text",
+    "type": "string",
+    "default": "",
+    "placeholder": "Notification message",
+    "description": "Text content of the notification",
+    "displayOptions": {
+      "show": {
+        "resource": ["notification"],
+        "operation": ["send"]
+      }
+    }
+  },
+  {
+    "displayName": "HTML",
+    "name": "html",
+    "type": "string",
+    "default": "",
+    "placeholder": "<p>HTML content</p>",
+    "description": "HTML content of the notification",
+    "displayOptions": {
+      "show": {
+        "resource": ["notification"],
+        "operation": ["send"]
+      }
+    }
+  },
+  {
+    "displayName": "Type",
+    "name": "type",
+    "type": "options",
+    "options": [
+      {
+        "name": "Info",
+        "value": "info"
+      },
+      {
+        "name": "Success",
+        "value": "success"
+      },
+      {
+        "name": "Error",
+        "value": "error"
+      }
+    ],
+    "default": "info",
+    "description": "Type of notification",
+    "displayOptions": {
+      "show": {
+        "resource": ["notification"],
+        "operation": ["send"]
+      }
+    }
+  },
+  {
+    "displayName": "Tags",
+    "name": "tags",
+    "type": "string",
+    "default": "",
+    "placeholder": "tag1,tag2,tag3",
+    "description": "Comma-separated list of tags",
+    "displayOptions": {
+      "show": {
+        "resource": ["notification"],
+        "operation": ["send"]
+      }
+    }
+  },
+  {
+    "displayName": "Button Text",
+    "name": "buttonText",
+    "type": "string",
+    "default": "",
+    "placeholder": "Click Here",
+    "description": "Text for the action button",
+    "displayOptions": {
+      "show": {
+        "resource": ["notification"],
+        "operation": ["send"]
+      }
+    }
+  },
+  {
+    "displayName": "Button Link",
+    "name": "buttonLink",
+    "type": "string",
+    "default": "",
+    "placeholder": "https://example.com",
+    "description": "URL for the action button",
+    "displayOptions": {
+      "show": {
+        "resource": ["notification"],
+        "operation": ["send"]
+      }
+    }
+  },
+  {
+    "displayName": "Username",
+    "name": "username",
+    "type": "string",
+    "default": "",
+    "placeholder": "johndoe",
+    "description": "Username for the new user",
+    "required": true,
+    "displayOptions": {
+      "show": {
+        "resource": ["user"],
+        "operation": ["create"]
+      }
+    }
+  },
+  {
+    "displayName": "Password",
+    "name": "password",
+    "type": "string",
+    "typeOptions": { "password": true },
+    "default": "",
+    "placeholder": "Enter password",
+    "description": "Password for the new user",
+    "required": true,
+    "displayOptions": {
+      "show": {
+        "resource": ["user"],
+        "operation": ["create"]
+      }
+    }
+  },
+  {
+    "displayName": "Full Name",
+    "name": "fullName",
+    "type": "string",
+    "default": "",
+    "placeholder": "John Doe",
+    "description": "Full name of the user",
+    "required": true,
+    "displayOptions": {
+      "show": {
+        "resource": ["user"],
+        "operation": ["create"]
+      }
+    }
+  },
+  {
+    "displayName": "Site Name",
+    "name": "siteName",
+    "type": "string",
+    "default": "",
+    "placeholder": "My Site",
+    "description": "Site name for the user",
+    "required": true,
+    "displayOptions": {
+      "show": {
+        "resource": ["user"],
+        "operation": ["create"]
+      }
+    }
+  },
+  {
+    "displayName": "Is Admin",
+    "name": "isAdmin",
+    "type": "options",
+    "options": [
+      {
+        "name": "No",
+        "value": false
+      },
+      {
+        "name": "Yes",
+        "value": true
+      }
+    ],
+    "default": false,
+    "description": "Whether the user should have admin privileges",
+    "displayOptions": {
+      "show": {
+        "resource": ["user"],
+        "operation": ["create"]
+      }
+    }
+  }
+]
