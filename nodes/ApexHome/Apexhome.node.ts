@@ -61,3 +61,9 @@ export interface UserRequestBody {
 	fullName: string;
 	siteName: string;
 }
+
+export interface PageRequestBody {
+	pageTitle: string;
+	pageContent: string;
+	isPublished: boolean;
+}

@@ -1,5 +1,5 @@
 import { IExecuteFunctions, INodeExecutionData, NodeOperationError } from "n8n-workflow";
-import { NotificationRequestBody, UserRequestBody } from "./Apexhome.node";
+import { NotificationRequestBody, PageRequestBody, UserRequestBody } from "./Apexhome.node";
 
 
 export async function executeFunction(context: IExecuteFunctions): Promise<INodeExecutionData[][]> {
@@ -16,7 +16,7 @@ export async function executeFunction(context: IExecuteFunctions): Promise<INode
             const operation = context.getNodeParameter('operation', i) as string;
             const apexHomeUrl = credentials.url as string;
 
-            let requestBody: NotificationRequestBody | UserRequestBody;
+            let requestBody: NotificationRequestBody | UserRequestBody | PageRequestBody;
             let endpoint: string;
 
             if (resource === 'notification' && operation === 'send') {
@@ -69,7 +69,22 @@ export async function executeFunction(context: IExecuteFunctions): Promise<INode
                     siteName,
                 };
 
-                endpoint = '/api/v1/public/users';
+                endpoint = '/api/v1/public/user';
+
+            } else if (resource === 'page' && operation === 'create') {
+                // Handle page creation
+                const pageTitle = context.getNodeParameter('pageTitle', i) as string;
+                const pageContent = context.getNodeParameter('pageContent', i) as string;
+                const isPublished = context.getNodeParameter('publish', i) as boolean;
+
+                // Prepare request body
+                requestBody = {
+                    pageTitle,
+                    pageContent,
+                    isPublished,
+                };
+
+                endpoint = '/api/v1/public/page';
 
             } else {
                 throw new NodeOperationError(context.getNode(), `The operation "${operation}" is not supported for resource "${resource}"`, { itemIndex: i });
