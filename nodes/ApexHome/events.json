@@ -1,7 +1,7 @@
 {
     "events": [
         {
-            "id": "user_created",
+            "id": "user.created",
             "name": "User Created"
         },
         {
@@ -9,51 +9,51 @@
             "name": "User Created (OIDC)"
         },
         {
-            "id": "user_updated",
+            "id": "user.updated",
             "name": "User Updated"
         },
         {
-            "id": "user_removed",
-            "name": "User Removed"
+            "id": "user.deleted",
+            "name": "User Deleted"
         },
         {
-            "id": "settings_updated",
+            "id": "settings.updated",
             "name": "Settings Updated"
         },
         {
-            "id": "apikey_generated",
+            "id": "apikey.generated",
             "name": "API Key Generated"
         },
         {
-            "id": "apikey_removed",
-            "name": "API Key Removed"
+            "id": "apikey.deleted",
+            "name": "API Key Deleted"
         },
         {
-            "id": "apikey_updated",
+            "id": "apikey.updated",
             "name": "API Key Updated"
         },
         {
-            "id": "credential_added",
+            "id": "credential.added",
             "name": "Credential Added"
         },
         {
-            "id": "credential_removed",
-            "name": "Credential Removed"
+            "id": "credential.deleted",
+            "name": "Credential Deleted"
         },
         {
-            "id": "credential_updated",
+            "id": "credential.updated",
             "name": "Credential Updated"
         },
         {
-            "id": "theme_changed",
+            "id": "theme.changed",
             "name": "Theme Changed"
         },
         {
-            "id": "iconpack_installed",
+            "id": "iconpack.installed",
             "name": "Icon Pack Installed"
         },
         {
-            "id": "iconpack_removed",
+            "id": "iconpack.removed",
             "name": "Icon Pack Removed"
         },
         {
@@ -61,31 +61,31 @@
             "name": "Avatar Updated"
         },
         {
-            "id": "callback_registered",
+            "id": "callback.registered",
             "name": "Callback Registered"
         },
         {
-            "id": "callback_unregistered",
+            "id": "callback.unregistered",
             "name": "Callback Unregistered"
         },
         {
-            "id": "liveapp_installed",
+            "id": "liveapp.installed",
             "name": "Live App Installed"
         },
         {
-            "id": "liveapp_uninstalled",
+            "id": "liveapp.uninstalled",
             "name": "Live App Uninstalled"
         },
         {
-            "id": "liveapp_updated",
+            "id": "liveapp.updated",
             "name": "Live App Updated"
         },
         {
-            "id": "vapid_updated",
+            "id": "notification.vapid_updated",
             "name": "VAPID Key updated"
         },
         {
-            "id": "notification_sent",
+            "id": "notification.sent",
             "name": "Notification Sent"
         },
         {
@@ -93,124 +93,124 @@
             "name": "Notification Received"
         },
         {
-            "id": "notification_cleared",
+            "id": "notification.cleared",
             "name": "Notification Cleared"
         },
         {
-            "id": "notification_read_all",
+            "id": "notification.read_all",
             "name": "Notification Read All"
         },
         {
-            "id": "notification_read_single",
+            "id": "notification.read_single",
             "name": "Notification Read Single"
         },
         {
-            "id": "notification_removed",
-            "name": "Notification Removed"
+            "id": "notification.removed",
+            "name": "Notification Deleted"
         },
         {
-            "id": "notification_subscribed",
+            "id": "notification.subscribed",
             "name": "Notification Subscribed"
         },
         {
-            "id": "notification_unsubscribed",
+            "id": "notification.unsubscribed",
             "name": "Notification Unsubscribed"
         },
         {
-            "id": "page_added",
+            "id": "page.added",
             "name": "Page Added"
         },
         {
-            "id": "page_removed",
-            "name": "Page Removed"
+            "id": "page.deleted",
+            "name": "Page Deleted"
         },
         {
-            "id": "page_updated",
+            "id": "page.updated",
             "name": "Page Updated"
         },
         {
-            "id": "page_published",
+            "id": "page.published",
             "name": "Page Published"
         },
         {
-            "id": "page_unpublished",
+            "id": "page.unpublished",
             "name": "Page Unpublished"
         },
         {
-            "id": "weather_settings_changed",
-            "name": "Weather Settings Changed"
+            "id": "settings.weather_settings_updated",
+            "name": "Weather Settings Updated"
         },
         {
-            "id": "server_device_added",
+            "id": "system.added",
             "name": "Server Device Added"
         },
         {
-            "id": "server_device_removed",
-            "name": "Server Device Removed"
+            "id": "system.deleted",
+            "name": "Server Device Deleted"
         },
         {
-            "id": "server_device_updated",
+            "id": "system.updated",
             "name": "Server Device Updated"
         },
         {
-            "id": "device_wol_triggered",
+            "id": "system.wol_triggered",
             "name": "Device WOL Triggered"
         },
         {
-            "id": "todo_created",
+            "id": "todo.created",
             "name": "Todo Created"
         },
         {
-            "id": "todo_updated",
+            "id": "todo.updated",
             "name": "Todo Updated"
         },
         {
-            "id": "todo_removed",
-            "name": "Todo Removed"
+            "id": "todo.deleted",
+            "name": "Todo Deleted"
         },
         {
-            "id": "todo_completed",
+            "id": "todo.completed",
             "name": "Todo Completed"
         },
         {
-            "id": "todo_uncompleted",
+            "id": "todo.uncompleted",
             "name": "Todo Uncompleted"
         },
         {
-            "id": "listing_created",
+            "id": "listing.created",
             "name": "Listing Created"
         },
         {
-            "id": "listing_updated",
+            "id": "listing.updated",
             "name": "Listing Updated"
         },
         {
-            "id": "listing_removed",
-            "name": "Listing Removed"
+            "id": "listing.deleted",
+            "name": "Listing Deleted"
         },
         {
-            "id": "listing_moved",
+            "id": "listing.moved",
             "name": "Listing Moved"
         },
         {
-            "id": "snippet_added",
+            "id": "snippet.added",
             "name": "Snippet Added"
         },
         {
-            "id": "snippet_removed",
-            "name": "Snippet Removed"
+            "id": "snippet.deleted",
+            "name": "Snippet Deleted"
         },
         {
-            "id": "snippet_updated",
+            "id": "snippet.updated",
             "name": "Snippet Updated"
         },
         {
-            "id": "icon_uploaded",
+            "id": "icon.uploaded",
             "name": "Icon Uploaded"
         },
         {
-            "id": "icon_removed",
-            "name": "Icon Removed"
+            "id": "icon.deleted",
+            "name": "Icon Deleted"
         },
         {
             "id": "test_event",

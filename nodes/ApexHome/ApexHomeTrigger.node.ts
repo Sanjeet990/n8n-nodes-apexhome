@@ -2,18 +2,29 @@ import type {
 	INodeType,
 	INodeTypeDescription,
 	IWebhookFunctions,
-	IWebhookResponseData,
-	INodeExecutionData,
+	IWebhookResponseData
 } from 'n8n-workflow';
-import { NodeConnectionTypes } from 'n8n-workflow';
 
 // Import events data directly
 import eventsData from './events.json';
 
-export class ApexHomeTrigger implements INodeType {
+export interface WebhookEventOption {
+	name: string;
+	value: string;
+}
+
+export class ApexhomeTrigger implements INodeType {
+
+	availableWebhookEvents : WebhookEventOption[] = eventsData.events.map((event: { name: string; id: string }) => {
+		return {
+			name: event.name,
+			value: event.id,
+		};
+	});
+
 	description: INodeTypeDescription = {
 		displayName: 'Apex Home Trigger',
-		name: 'apexHomeTrigger',
+		name: 'apexhomeTrigger',
 		icon: 'file:apexhome.svg',
 		group: ['trigger'],
 		version: 1,
@@ -25,7 +36,7 @@ export class ApexHomeTrigger implements INodeType {
 			name: 'Apex Home Trigger',
 		},
 		inputs: [],
-		outputs: [],
+		outputs: ["main"],
 		webhooks: [
 			{
 				name: 'default',
@@ -34,21 +45,18 @@ export class ApexHomeTrigger implements INodeType {
 				path: 'webhook',
 			},
 		],
-		properties: [],
+		properties: [
+			{
+				displayName: 'Events',
+				name: 'events',
+				type: 'multiOptions',
+				default: [],
+				description: 'The webhook events which should fire this webhook target',
+				options: this.availableWebhookEvents,
+			},
+		],
 		usableAsTool: undefined,
 	};
-
-	constructor() {
-		const outputNames = eventsData.events.map((event: { name: string }) => event.name);
-		const outputCount = outputNames.length;
-
-		this.description = {
-			...this.description,
-			inputs: [],
-			outputs: Array(outputCount).fill(NodeConnectionTypes.Main),
-			outputNames: outputNames as string[],
-		};
-	}
 
 	async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
 		const allEvents = eventsData.events.map((event: { id: string }) => event.id);
@@ -58,23 +66,18 @@ export class ApexHomeTrigger implements INodeType {
 		// Extract webhook data
 		const eventName = body.eventName as string;
 
+		console.log(eventName);
+
 		if (!allEvents.includes(eventName)) {
 			return {
 				noWebhookResponse: true,
 			};
 		}
 
-		// Find the index of the event
-		const eventIndex = allEvents.indexOf(eventName);
-
-		// Send output on that index only, others will have empty arrays
-		const outputData: INodeExecutionData[][] = Array(allEvents.length)
-			.fill(null)
-			.map(() => [] as INodeExecutionData[]);
-		outputData[eventIndex] = this.helpers.returnJsonArray(body) as INodeExecutionData[];
-
 		return {
-			workflowData: outputData,
+			workflowData: [
+				this.helpers.returnJsonArray(body)
+			],
 		};
 	}
 }

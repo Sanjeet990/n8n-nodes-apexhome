@@ -35,7 +35,7 @@
 		],
 		"nodes": [
 			"dist/nodes/ApexHome/Apexhome.node.js",
-			"dist/nodes/ApexHome/ApexHomeTrigger.node.js"
+			"dist/nodes/ApexHome/ApexhomeTrigger.node.js"
 		]
 	},
 	"devDependencies": {

@@ -11,15 +11,15 @@ import type { INodeProperties } from 'n8n-workflow';
 
 export class Apexhome implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Apex Home Actions',
+		displayName: 'Apex Home',
 		name: 'apexhome',
 		icon: { light: 'file:apexhome.svg', dark: 'file:apexhome.dark.svg' },
-		group: ['input'],
+		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Interact with Apex Home API',
 		defaults: {
-			name: 'Apex Home Actions',
+			name: 'Apex Home',
 		},
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
