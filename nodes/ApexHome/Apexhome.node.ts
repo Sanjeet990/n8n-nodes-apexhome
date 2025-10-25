@@ -3,11 +3,11 @@ import type {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
+	INodeProperties
 } from 'n8n-workflow';
 import { NodeConnectionTypes } from 'n8n-workflow';
 import { executeFunction } from './actionfunctions';
 import properties from './properties.json';
-import type { INodeProperties } from 'n8n-workflow';
 
 export class Apexhome implements INodeType {
 	description: INodeTypeDescription = {
