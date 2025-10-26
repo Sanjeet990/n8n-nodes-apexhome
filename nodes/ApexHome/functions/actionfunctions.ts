@@ -1,5 +1,5 @@
 import { IExecuteFunctions, IHttpRequestMethods, INodeExecutionData, NodeOperationError } from "n8n-workflow";
-import { NotificationRequestBody, PagePublishRequestBody, PageRequestBody, UserRequestBody } from "./Apexhome.node";
+import { NotificationRequestBody, PagePublishRequestBody, PageRequestBody, UserRequestBody } from "../Apexhome.node";
 
 
 export async function executeFunction(context: IExecuteFunctions): Promise<INodeExecutionData[][]> {
