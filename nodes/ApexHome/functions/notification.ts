@@ -18,7 +18,7 @@ export async function executeNotificationFunction(context: IExecuteFunctions): P
 
             let requestBody: NotificationRequestBody | undefined;
             let endpoint: string;
-            let method: IHttpRequestMethods = 'POST';
+            const method: IHttpRequestMethods = 'POST';
 
             if (resource !== 'notification') {
                 throw new NodeOperationError(context.getNode(), `The resource "${resource}" is not supported in notification function`, { itemIndex: i });
