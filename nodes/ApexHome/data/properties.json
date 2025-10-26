@@ -16,6 +16,14 @@
       {
         "name": "Page",
         "value": "page"
+      },
+      {
+        "name": "TOTP",
+        "value": "totp"
+      },
+      {
+        "name": "Network Devices",
+        "value": "networkDevices"
       }
     ],
     "default": "notification"
@@ -136,6 +144,98 @@
         "value": "publish",
         "description": "Publish or unpublish a specific page",
         "action": "Publish / Unpublish page"
+      }
+    ],
+    "default": "create"
+  },
+  {
+    "displayName": "Operation",
+    "name": "operation",
+    "type": "options",
+    "noDataExpression": true,
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "totp"
+        ]
+      }
+    },
+    "options": [
+      {
+        "name": "Add",
+        "value": "create",
+        "description": "Add a TOTP",
+        "action": "Add a TOTP"
+      },
+      {
+        "name": "Modify",
+        "value": "update",
+        "description": "Modify a TOTP",
+        "action": "Modify a TOTP"
+      },
+      {
+        "name": "List",
+        "value": "list",
+        "description": "List all TOTP",
+        "action": "List all TOTP"
+      },
+      {
+        "name": "TOTP Data",
+        "value": "info",
+        "description": "Get data of a specific TOTP",
+        "action": "Get TOTP data"
+      },
+      {
+        "name": "Delete",
+        "value": "delete",
+        "description": "Delete a specific TOTP",
+        "action": "Delete TOTP"
+      }
+    ],
+    "default": "create"
+  },
+  {
+    "displayName": "Operation",
+    "name": "operation",
+    "type": "options",
+    "noDataExpression": true,
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "networkDevices"
+        ]
+      }
+    },
+    "options": [
+      {
+        "name": "Add",
+        "value": "create",
+        "description": "Add a network device",
+        "action": "Add a network device"
+      },
+      {
+        "name": "Modify",
+        "value": "update",
+        "description": "Modify a network device",
+        "action": "Modify a network device"
+      },
+      {
+        "name": "List",
+        "value": "list",
+        "description": "List all network devices",
+        "action": "List all network devices"
+      },
+      {
+        "name": "Network Device Data",
+        "value": "info",
+        "description": "Get data of a specific network device",
+        "action": "Get network device data"
+      },
+      {
+        "name": "Delete",
+        "value": "delete",
+        "description": "Delete a specific network device",
+        "action": "Delete network device"
       }
     ],
     "default": "create"
@@ -455,7 +555,7 @@
     "default": 0,
     "placeholder": "12345",
     "description": "ID of the page",
-    "required": true,
+    "required": false,
     "displayOptions": {
       "show": {
         "resource": [
@@ -477,7 +577,7 @@
     "default": "",
     "placeholder": "My Awesome Page",
     "description": "Title of the page",
-    "required": true,
+    "required": false,
     "displayOptions": {
       "show": {
         "resource": [
@@ -497,7 +597,7 @@
     "default": "",
     "placeholder": "<h1>Welcome to my page</h1>",
     "description": "HTML content of the page",
-    "required": true,
+    "required": false,
     "displayOptions": {
       "show": {
         "resource": [
@@ -535,6 +635,170 @@
           "create",
           "update",
           "publish"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "TOTP Id",
+    "name": "totpId",
+    "type": "number",
+    "default": 0,
+    "placeholder": "12345",
+    "description": "ID of the TOTP",
+    "required": true,
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "totp"
+        ],
+        "operation": [
+          "info",
+          "delete",
+          "publish",
+          "update"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "Service Name",
+    "name": "serviceName",
+    "type": "string",
+    "default": "",
+    "placeholder": "My Awesome Service",
+    "description": "Name of the service",
+    "required": false,
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "totp"
+        ],
+        "operation": [
+          "create",
+          "update"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "Account Name",
+    "name": "accountName",
+    "type": "string",
+    "default": "",
+    "placeholder": "My Account",
+    "description": "Name of the account",
+    "required": false,
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "totp"
+        ],
+        "operation": [
+          "create",
+          "update"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "Secret Key",
+    "name": "secretKey",
+    "type": "string",
+    "default": "",
+    "placeholder": "My Secret Key",
+    "description": "Secret key for the account",
+    "required": false,
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "totp"
+        ],
+        "operation": [
+          "create",
+          "update"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "Device Id",
+    "name": "deviceId",
+    "type": "number",
+    "default": 0,
+    "placeholder": "12345",
+    "description": "ID of the device",
+    "required": true,
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "networkDevices"
+        ],
+        "operation": [
+          "info",
+          "delete",
+          "publish",
+          "update"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "Device MAC",
+    "name": "deviceMac",
+    "type": "string",
+    "default": "",
+    "placeholder": "00:1A:2B:3C:4D:5E",
+    "description": "MAC address of the device",
+    "required": false,
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "networkDevices"
+        ],
+        "operation": [
+          "create",
+          "update"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "Device Name",
+    "name": "deviceName",
+    "type": "string",
+    "default": "",
+    "placeholder": "My Device",
+    "description": "Name of the device",
+    "required": false,
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "networkDevices"
+        ],
+        "operation": [
+          "create",
+          "update"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "Device IP",
+    "name": "deviceIp",
+    "type": "string",
+    "default": "",
+    "placeholder": "192.168.1.1",
+    "description": "IP address of the device",
+    "required": false,
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "networkDevices"
+        ],
+        "operation": [
+          "create",
+          "update"
         ]
       }
     }

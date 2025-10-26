@@ -2,6 +2,8 @@ import { IExecuteFunctions, INodeExecutionData, NodeOperationError } from "n8n-w
 import { executeUserFunction } from "./user";
 import { executePageFunction } from "./page";
 import { executeNotificationFunction } from "./notification";
+import { executeTotpFunction } from "./totp";
+import { executeNetworkDeviceFunction } from "./networkdevices";
 
 export async function executeFunction(context: IExecuteFunctions): Promise<INodeExecutionData[][]> {
     const items = context.getInputData();
@@ -18,6 +20,10 @@ export async function executeFunction(context: IExecuteFunctions): Promise<INode
                 return await executePageFunction(context);
             } else if (resource === 'notification') {
                 return await executeNotificationFunction(context);
+            } else if (resource === 'totp') {
+                return await executeTotpFunction(context);
+            } else if (resource === 'networkDevices') {
+                return await executeNetworkDeviceFunction(context);
             } else {
                 throw new NodeOperationError(context.getNode(), `The resource "${resource}" is not supported`, { itemIndex: i });
             }

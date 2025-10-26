@@ -1,4 +1,5 @@
 import type {
+	ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
 	Icon
@@ -10,8 +11,8 @@ export class ApexHomeApi implements ICredentialType {
 	displayName = 'Apex Home API Key API';
 
 	documentationUrl = 'https://github.com/Sanjeet990/n8n-nodes-apexhome?tab=readme-ov-file#credentials';
-	
-    icon: Icon = 'file:shared/apexhome.svg';
+
+	icon: Icon = 'file:shared/apexhome.svg';
 
 	properties: INodeProperties[] = [
 		{
@@ -34,13 +35,23 @@ export class ApexHomeApi implements ICredentialType {
 		},
 	];
 
-	test = {
+	test: ICredentialTestRequest = {
 		request: {
-			method: 'GET' as const,
-			url: '={{$credentials.url}}/api/test',
+			method: 'POST' as const,
+			baseURL: '={{$credentials.url}}/api/v1/public/test',
+			url: '',
 			headers: {
-				Authorization: 'Bearer {{$credentials.apiKey}}',
+				'x-api-key': '={{$credentials.apiKey}}',
 			},
 		},
+		rules: [
+			{
+				type: 'responseCode',
+				properties: {
+					value: 200,
+					message: "Authentication successful",
+				}
+			}
+		]
 	};
 }
