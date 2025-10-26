@@ -1,5 +1,5 @@
-import { IExecuteFunctions, INodeExecutionData, NodeOperationError } from "n8n-workflow";
-import { NotificationRequestBody, PageRequestBody, UserRequestBody } from "./Apexhome.node";
+import { IExecuteFunctions, IHttpRequestMethods, INodeExecutionData, NodeOperationError } from "n8n-workflow";
+import { NotificationRequestBody, PagePublishRequestBody, PageRequestBody, UserRequestBody } from "./Apexhome.node";
 
 
 export async function executeFunction(context: IExecuteFunctions): Promise<INodeExecutionData[][]> {
@@ -16,8 +16,9 @@ export async function executeFunction(context: IExecuteFunctions): Promise<INode
             const operation = context.getNodeParameter('operation', i) as string;
             const apexHomeUrl = credentials.url as string;
 
-            let requestBody: NotificationRequestBody | UserRequestBody | PageRequestBody;
+            let requestBody: NotificationRequestBody | UserRequestBody | PageRequestBody | PagePublishRequestBody | undefined;
             let endpoint: string;
+            let method: IHttpRequestMethods = 'POST';
 
             if (resource === 'notification' && operation === 'send') {
                 const appName = context.getNodeParameter('appName', i) as string;
@@ -86,12 +87,66 @@ export async function executeFunction(context: IExecuteFunctions): Promise<INode
 
                 endpoint = '/api/v1/public/page';
 
+            } else if (resource === 'page' && operation === 'update') {
+                // Handle page update
+                const pageId = context.getNodeParameter('pageId', i) as number;
+                const pageTitle = context.getNodeParameter('pageTitle', i) as string;
+                const pageContent = context.getNodeParameter('pageContent', i) as string;
+                const isPublished = context.getNodeParameter('publish', i) as boolean;
+
+                // Prepare request body
+                requestBody = {
+                    pageTitle,
+                    pageContent,
+                    isPublished,
+                };
+
+                endpoint = `/api/v1/public/page/${pageId}`;
+                method = 'PUT';
+
+            } else if (resource === 'page' && operation === 'list') {
+                // Prepare request body
+                requestBody = undefined;
+
+                endpoint = '/api/v1/public/pages';
+                method = 'GET';
+
+            } else if (resource === 'page' && operation === 'info') {
+                // Prepare request body
+                const pageId = context.getNodeParameter('pageId', i) as number;
+
+                requestBody = undefined;
+
+                endpoint = `/api/v1/public/page/${pageId}`;
+                method = 'GET';
+
+            } else if (resource === 'page' && operation === 'delete') {
+                // Prepare request body
+                const pageId = context.getNodeParameter('pageId', i) as number;
+
+                requestBody = undefined;
+
+                endpoint = `/api/v1/public/page/${pageId}`;
+                method = 'DELETE';
+
+            } else if (resource === 'page' && operation === 'publish') {
+                // Prepare request body
+                const pageId = context.getNodeParameter('pageId', i) as number;
+                const isPublished = context.getNodeParameter('publish', i) as boolean;
+
+                requestBody = {
+                    isPublished
+                };
+
+                endpoint = `/api/v1/public/page/${pageId}/publish`;
+                method = 'PATCH';
+
             } else {
                 throw new NodeOperationError(context.getNode(), `The operation "${operation}" is not supported for resource "${resource}"`, { itemIndex: i });
             }
 
             const response = await context.helpers.httpRequest({
-                method: 'POST',
+                method: method,
                 url: `${apexHomeUrl.replace(/\/$/, '')}${endpoint}`,
                 headers: {
                     'Content-Type': 'application/json',
@@ -127,6 +182,7 @@ export async function executeFunction(context: IExecuteFunctions): Promise<INode
                     error.context.itemIndex = i;
                     throw error;
                 }
+                console.log(error);
                 throw new NodeOperationError(context.getNode(), error, {
                     itemIndex: i,
                 });

@@ -67,3 +67,7 @@ export interface PageRequestBody {
 	pageContent: string;
 	isPublished: boolean;
 }
+
+export interface PagePublishRequestBody {
+	isPublished: boolean;
+}
