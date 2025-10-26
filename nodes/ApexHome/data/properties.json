@@ -27,7 +27,9 @@
     "noDataExpression": true,
     "displayOptions": {
       "show": {
-        "resource": ["notification"]
+        "resource": [
+          "notification"
+        ]
       }
     },
     "options": [
@@ -47,7 +49,9 @@
     "noDataExpression": true,
     "displayOptions": {
       "show": {
-        "resource": ["user"]
+        "resource": [
+          "user"
+        ]
       }
     },
     "options": [
@@ -56,6 +60,30 @@
         "value": "create",
         "description": "Create a user",
         "action": "Create a user"
+      },
+      {
+        "name": "Update",
+        "value": "update",
+        "description": "Update a user",
+        "action": "Update a user"
+      },
+      {
+        "name": "List",
+        "value": "list",
+        "description": "List all users",
+        "action": "List all users"
+      },
+      {
+        "name": "User Data",
+        "value": "info",
+        "description": "Get data of a specific user",
+        "action": "Get user data"
+      },
+      {
+        "name": "Delete",
+        "value": "delete",
+        "description": "Delete a user",
+        "action": "Delete a user"
       }
     ],
     "default": "create"
@@ -67,7 +95,9 @@
     "noDataExpression": true,
     "displayOptions": {
       "show": {
-        "resource": ["page"]
+        "resource": [
+          "page"
+        ]
       }
     },
     "options": [
@@ -120,8 +150,12 @@
     "required": true,
     "displayOptions": {
       "show": {
-        "resource": ["notification"],
-        "operation": ["send"]
+        "resource": [
+          "notification"
+        ],
+        "operation": [
+          "send"
+        ]
       }
     }
   },
@@ -134,8 +168,12 @@
     "description": "URL to the application icon",
     "displayOptions": {
       "show": {
-        "resource": ["notification"],
-        "operation": ["send"]
+        "resource": [
+          "notification"
+        ],
+        "operation": [
+          "send"
+        ]
       }
     }
   },
@@ -149,8 +187,12 @@
     "required": true,
     "displayOptions": {
       "show": {
-        "resource": ["notification"],
-        "operation": ["send"]
+        "resource": [
+          "notification"
+        ],
+        "operation": [
+          "send"
+        ]
       }
     }
   },
@@ -163,8 +205,12 @@
     "description": "Text content of the notification",
     "displayOptions": {
       "show": {
-        "resource": ["notification"],
-        "operation": ["send"]
+        "resource": [
+          "notification"
+        ],
+        "operation": [
+          "send"
+        ]
       }
     }
   },
@@ -177,8 +223,12 @@
     "description": "HTML content of the notification",
     "displayOptions": {
       "show": {
-        "resource": ["notification"],
-        "operation": ["send"]
+        "resource": [
+          "notification"
+        ],
+        "operation": [
+          "send"
+        ]
       }
     }
   },
@@ -204,8 +254,12 @@
     "description": "Type of notification",
     "displayOptions": {
       "show": {
-        "resource": ["notification"],
-        "operation": ["send"]
+        "resource": [
+          "notification"
+        ],
+        "operation": [
+          "send"
+        ]
       }
     }
   },
@@ -218,8 +272,12 @@
     "description": "Comma-separated list of tags",
     "displayOptions": {
       "show": {
-        "resource": ["notification"],
-        "operation": ["send"]
+        "resource": [
+          "notification"
+        ],
+        "operation": [
+          "send"
+        ]
       }
     }
   },
@@ -232,8 +290,12 @@
     "description": "Text for the action button",
     "displayOptions": {
       "show": {
-        "resource": ["notification"],
-        "operation": ["send"]
+        "resource": [
+          "notification"
+        ],
+        "operation": [
+          "send"
+        ]
       }
     }
   },
@@ -246,8 +308,33 @@
     "description": "URL for the action button",
     "displayOptions": {
       "show": {
-        "resource": ["notification"],
-        "operation": ["send"]
+        "resource": [
+          "notification"
+        ],
+        "operation": [
+          "send"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "User Id",
+    "name": "userId",
+    "type": "number",
+    "default": 0,
+    "placeholder": "12345",
+    "description": "ID of the user",
+    "required": true,
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "user"
+        ],
+        "operation": [
+          "info",
+          "delete",
+          "update"
+        ]
       }
     }
   },
@@ -258,11 +345,16 @@
     "default": "",
     "placeholder": "johndoe",
     "description": "Username for the new user",
-    "required": true,
+    "required": false,
     "displayOptions": {
       "show": {
-        "resource": ["user"],
-        "operation": ["create"]
+        "resource": [
+          "user"
+        ],
+        "operation": [
+          "create",
+          "update"
+        ]
       }
     }
   },
@@ -270,15 +362,22 @@
     "displayName": "Password",
     "name": "password",
     "type": "string",
-    "typeOptions": { "password": true },
+    "typeOptions": {
+      "password": true
+    },
     "default": "",
     "placeholder": "Enter password",
     "description": "Password for the new user",
-    "required": true,
+    "required": false,
     "displayOptions": {
       "show": {
-        "resource": ["user"],
-        "operation": ["create"]
+        "resource": [
+          "user"
+        ],
+        "operation": [
+          "create",
+          "update"
+        ]
       }
     }
   },
@@ -289,11 +388,16 @@
     "default": "",
     "placeholder": "John Doe",
     "description": "Full name of the user",
-    "required": true,
+    "required": false,
     "displayOptions": {
       "show": {
-        "resource": ["user"],
-        "operation": ["create"]
+        "resource": [
+          "user"
+        ],
+        "operation": [
+          "create",
+          "update"
+        ]
       }
     }
   },
@@ -304,11 +408,16 @@
     "default": "",
     "placeholder": "My Site",
     "description": "Site name for the user",
-    "required": true,
+    "required": false,
     "displayOptions": {
       "show": {
-        "resource": ["user"],
-        "operation": ["create"]
+        "resource": [
+          "user"
+        ],
+        "operation": [
+          "create",
+          "update"
+        ]
       }
     }
   },
@@ -330,8 +439,12 @@
     "description": "Whether the user should have admin privileges",
     "displayOptions": {
       "show": {
-        "resource": ["user"],
-        "operation": ["create"]
+        "resource": [
+          "user"
+        ],
+        "operation": [
+          "create"
+        ]
       }
     }
   },
@@ -345,8 +458,15 @@
     "required": true,
     "displayOptions": {
       "show": {
-        "resource": ["page"],
-        "operation": ["info", "delete", "publish", "update"]
+        "resource": [
+          "page"
+        ],
+        "operation": [
+          "info",
+          "delete",
+          "publish",
+          "update"
+        ]
       }
     }
   },
@@ -360,8 +480,13 @@
     "required": true,
     "displayOptions": {
       "show": {
-        "resource": ["page"],
-        "operation": ["create", "update"]
+        "resource": [
+          "page"
+        ],
+        "operation": [
+          "create",
+          "update"
+        ]
       }
     }
   },
@@ -375,8 +500,13 @@
     "required": true,
     "displayOptions": {
       "show": {
-        "resource": ["page"],
-        "operation": ["create", "update"]
+        "resource": [
+          "page"
+        ],
+        "operation": [
+          "create",
+          "update"
+        ]
       }
     }
   },
@@ -398,10 +528,15 @@
     "description": "Whether the page should be published",
     "displayOptions": {
       "show": {
-        "resource": ["page"],
-        "operation": ["create", "update", "publish"]
+        "resource": [
+          "page"
+        ],
+        "operation": [
+          "create",
+          "update",
+          "publish"
+        ]
       }
     }
   }
-  
 ]

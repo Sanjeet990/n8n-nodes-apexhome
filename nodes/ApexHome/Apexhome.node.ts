@@ -39,35 +39,3 @@ export class Apexhome implements INodeType {
 		return await executeFunction(this);
 	}
 }
-
-// Define a type for the request body
-export interface NotificationRequestBody {
-	appName: string;
-	appIcon?: string;
-	title: string;
-	text?: string;
-	html?: string;
-	type: string;
-	tags: string[];
-	actionButton?: {
-		actionName: string;
-		actionUrl: string;
-	};
-}
-
-export interface UserRequestBody {
-	username: string;
-	password: string;
-	fullName: string;
-	siteName: string;
-}
-
-export interface PageRequestBody {
-	pageTitle: string;
-	pageContent: string;
-	isPublished: boolean;
-}
-
-export interface PagePublishRequestBody {
-	isPublished: boolean;
-}
