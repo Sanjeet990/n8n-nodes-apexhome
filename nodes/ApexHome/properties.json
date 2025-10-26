@@ -76,6 +76,36 @@
         "value": "create",
         "description": "Add a page",
         "action": "Add a page"
+      },
+      {
+        "name": "Modify",
+        "value": "update",
+        "description": "Modify a page",
+        "action": "Modify a page"
+      },
+      {
+        "name": "List",
+        "value": "list",
+        "description": "List all pages",
+        "action": "List all pages"
+      },
+      {
+        "name": "Page Data",
+        "value": "info",
+        "description": "Get data of a specific page",
+        "action": "Get page data"
+      },
+      {
+        "name": "Delete",
+        "value": "delete",
+        "description": "Delete a specific page",
+        "action": "Delete page"
+      },
+      {
+        "name": "Publish / Unpublish",
+        "value": "publish",
+        "description": "Publish or unpublish a specific page",
+        "action": "Publish / Unpublish page"
       }
     ],
     "default": "create"
@@ -306,6 +336,21 @@
     }
   },
   {
+    "displayName": "Page Id",
+    "name": "pageId",
+    "type": "number",
+    "default": 0,
+    "placeholder": "12345",
+    "description": "ID of the page",
+    "required": true,
+    "displayOptions": {
+      "show": {
+        "resource": ["page"],
+        "operation": ["info", "delete", "publish", "update"]
+      }
+    }
+  },
+  {
     "displayName": "Page Title",
     "name": "pageTitle",
     "type": "string",
@@ -316,7 +361,7 @@
     "displayOptions": {
       "show": {
         "resource": ["page"],
-        "operation": ["create"]
+        "operation": ["create", "update"]
       }
     }
   },
@@ -331,7 +376,7 @@
     "displayOptions": {
       "show": {
         "resource": ["page"],
-        "operation": ["create"]
+        "operation": ["create", "update"]
       }
     }
   },
@@ -354,7 +399,7 @@
     "displayOptions": {
       "show": {
         "resource": ["page"],
-        "operation": ["create"]
+        "operation": ["create", "update", "publish"]
       }
     }
   }
