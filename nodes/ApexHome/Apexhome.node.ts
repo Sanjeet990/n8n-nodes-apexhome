@@ -6,14 +6,14 @@ import type {
 	INodeProperties
 } from 'n8n-workflow';
 import { NodeConnectionTypes } from 'n8n-workflow';
-import { executeFunction } from './actionfunctions';
-import properties from './properties.json';
+import { executeFunction } from './functions/actionfunctions';
+import properties from './data/properties.json';
 
 export class Apexhome implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Apex Home',
 		name: 'apexhome',
-		icon: { light: 'file:apexhome.svg', dark: 'file:apexhome.dark.svg' },
+		icon: { light: 'file:icons/apexhome.svg', dark: 'file:icons/apexhome.dark.svg' },
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
@@ -38,32 +38,4 @@ export class Apexhome implements INodeType {
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		return await executeFunction(this);
 	}
-}
-
-// Define a type for the request body
-export interface NotificationRequestBody {
-	appName: string;
-	appIcon?: string;
-	title: string;
-	text?: string;
-	html?: string;
-	type: string;
-	tags: string[];
-	actionButton?: {
-		actionName: string;
-		actionUrl: string;
-	};
-}
-
-export interface UserRequestBody {
-	username: string;
-	password: string;
-	fullName: string;
-	siteName: string;
-}
-
-export interface PageRequestBody {
-	pageTitle: string;
-	pageContent: string;
-	isPublished: boolean;
 }

@@ -1,8 +1,8 @@
-import { IExecuteFunctions, INodeExecutionData, NodeOperationError } from "n8n-workflow";
-import { NotificationRequestBody, PageRequestBody, UserRequestBody } from "./Apexhome.node";
+import { IExecuteFunctions, IHttpRequestMethods, INodeExecutionData, NodeOperationError } from "n8n-workflow";
+import { NotificationRequestBody } from "../interfaces/notificationInterfaces";
 
 
-export async function executeFunction(context: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+export async function executeNotificationFunction(context: IExecuteFunctions): Promise<INodeExecutionData[][]> {
     const items = context.getInputData();
     const returnData: INodeExecutionData[] = [];
 
@@ -16,10 +16,15 @@ export async function executeFunction(context: IExecuteFunctions): Promise<INode
             const operation = context.getNodeParameter('operation', i) as string;
             const apexHomeUrl = credentials.url as string;
 
-            let requestBody: NotificationRequestBody | UserRequestBody | PageRequestBody;
+            let requestBody: NotificationRequestBody | undefined;
             let endpoint: string;
+            let method: IHttpRequestMethods = 'POST';
 
-            if (resource === 'notification' && operation === 'send') {
+            if (resource !== 'notification') {
+                throw new NodeOperationError(context.getNode(), `The resource "${resource}" is not supported in notification function`, { itemIndex: i });
+            }
+
+            if (operation === 'send') {
                 const appName = context.getNodeParameter('appName', i) as string;
                 const appIcon = context.getNodeParameter('appIcon', i) as string;
                 const title = context.getNodeParameter('title', i) as string;
@@ -53,45 +58,12 @@ export async function executeFunction(context: IExecuteFunctions): Promise<INode
 
                 endpoint = '/api/v1/public/notification/push';
 
-            } else if (resource === 'user' && operation === 'create') {
-                // Handle user creation
-                const username = context.getNodeParameter('username', i) as string;
-                const password = context.getNodeParameter('password', i) as string;
-                const fullName = context.getNodeParameter('fullName', i) as string;
-                const siteName = context.getNodeParameter('siteName', i) as string;
-                // Note: isAdmin field is available but not sent in request body per API specification
-
-                // Prepare request body
-                requestBody = {
-                    username,
-                    password,
-                    fullName,
-                    siteName,
-                };
-
-                endpoint = '/api/v1/public/user';
-
-            } else if (resource === 'page' && operation === 'create') {
-                // Handle page creation
-                const pageTitle = context.getNodeParameter('pageTitle', i) as string;
-                const pageContent = context.getNodeParameter('pageContent', i) as string;
-                const isPublished = context.getNodeParameter('publish', i) as boolean;
-
-                // Prepare request body
-                requestBody = {
-                    pageTitle,
-                    pageContent,
-                    isPublished,
-                };
-
-                endpoint = '/api/v1/public/page';
-
             } else {
                 throw new NodeOperationError(context.getNode(), `The operation "${operation}" is not supported for resource "${resource}"`, { itemIndex: i });
             }
 
             const response = await context.helpers.httpRequest({
-                method: 'POST',
+                method: method,
                 url: `${apexHomeUrl.replace(/\/$/, '')}${endpoint}`,
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,10 +76,7 @@ export async function executeFunction(context: IExecuteFunctions): Promise<INode
             returnData.push({
                 json: {
                     success: true,
-                    resource,
-                    operation,
                     response,
-                    requestBody,
                 },
                 pairedItem: i,
             });
@@ -127,6 +96,7 @@ export async function executeFunction(context: IExecuteFunctions): Promise<INode
                     error.context.itemIndex = i;
                     throw error;
                 }
+                console.log(error);
                 throw new NodeOperationError(context.getNode(), error, {
                     itemIndex: i,
                 });

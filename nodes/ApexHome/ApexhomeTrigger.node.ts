@@ -6,7 +6,7 @@ import type {
 } from 'n8n-workflow';
 
 // Import events data directly
-import eventsData from './events.json';
+import eventsData from './data/events.json';
 
 export interface WebhookEventOption {
 	name: string;
@@ -25,7 +25,7 @@ export class ApexhomeTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Apex Home Trigger',
 		name: 'apexhomeTrigger',
-		icon: 'file:apexhome.svg',
+		icon: 'file:icons/apexhome.svg',
 		group: ['trigger'],
 		version: 1,
 		subtitle: 'Apex Home Webhook Trigger',
