@@ -24,6 +24,10 @@
       {
         "name": "Network Devices",
         "value": "networkDevices"
+      },
+      {
+        "name": "Settings",
+        "value": "settings"
       }
     ],
     "default": "notification"

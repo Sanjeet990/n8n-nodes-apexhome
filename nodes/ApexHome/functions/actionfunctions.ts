@@ -4,6 +4,7 @@ import { executePageFunction } from "./page";
 import { executeNotificationFunction } from "./notification";
 import { executeTotpFunction } from "./totp";
 import { executeNetworkDeviceFunction } from "./networkdevices";
+import { executeSettingFunction } from "./setting";
 
 export async function executeFunction(context: IExecuteFunctions): Promise<INodeExecutionData[][]> {
     const items = context.getInputData();
@@ -24,6 +25,8 @@ export async function executeFunction(context: IExecuteFunctions): Promise<INode
                 return await executeTotpFunction(context);
             } else if (resource === 'networkDevices') {
                 return await executeNetworkDeviceFunction(context);
+            } else if (resource === 'settings') {
+                return await executeSettingFunction(context);
             } else {
                 throw new NodeOperationError(context.getNode(), `The resource "${resource}" is not supported`, { itemIndex: i });
             }

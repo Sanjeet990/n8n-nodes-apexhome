@@ -4,7 +4,7 @@ export interface ChangeThemeRequestBody {
 
 export interface WeatherLocationRequestBody {
 	location: {
-		locationName: string;
+		location: string;
 		latitude: string;
 		longitude: string;
 	},
