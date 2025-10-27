@@ -59,16 +59,16 @@ export class ApexhomeTrigger implements INodeType {
 	};
 
 	async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
-		const allEvents = eventsData.events.map((event: { id: string }) => event.id);
+
+		//get selected events
+		const webhookEvents = this.getNodeParameter('events') as string[];
 
 		const body = this.getBodyData();
 
 		// Extract webhook data
 		const eventName = body.eventName as string;
 
-		console.log(eventName);
-
-		if (!allEvents.includes(eventName)) {
+		if (!webhookEvents.includes(eventName)) {
 			return {
 				noWebhookResponse: true,
 			};
