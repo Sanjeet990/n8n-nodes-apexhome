@@ -77,10 +77,23 @@ export async function executeSettingFunction(context: IExecuteFunctions): Promis
                 },
                 body: requestBody,
                 json: true,
+                encoding: operation === 'backup' ? 'arraybuffer' : 'json',
             });
 
             //Check mimetype of the 
             if (operation === 'backup') {
+                let buffer;
+                if (response instanceof ArrayBuffer) {
+                    buffer = Buffer.from(response);
+                } else if (Buffer.isBuffer(response)) {
+                    buffer = response;
+                } else if (typeof response === 'string') {
+                    // If it's still a string, it's likely base64 or latin1 encoded
+                    buffer = Buffer.from(response, 'latin1');
+                } else {
+                    buffer = Buffer.from(response);
+                }
+
                 returnData.push({
                     json: {
                         success: true,
@@ -88,7 +101,7 @@ export async function executeSettingFunction(context: IExecuteFunctions): Promis
                     },
                     binary: {
                         ['data']: {
-                            data: response,
+                            data: buffer.toString('base64'),
                             mimeType: 'application/apex',
                             fileName: 'response.apex',
                         },
