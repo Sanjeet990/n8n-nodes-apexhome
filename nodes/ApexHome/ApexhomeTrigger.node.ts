@@ -63,6 +63,9 @@ export class ApexhomeTrigger implements INodeType {
 		//get selected events
 		const webhookEvents = this.getNodeParameter('events') as string[];
 
+		//Add test_event to allowed events so that it stays allowed always
+		webhookEvents.push('test_event');
+
 		const body = this.getBodyData();
 
 		// Extract webhook data
