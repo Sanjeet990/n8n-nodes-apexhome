@@ -10,3 +10,7 @@ export interface WeatherLocationRequestBody {
 	},
 	unit: string;
 }
+
+export interface BackupRequestBody {
+	password: string;
+}

@@ -1,5 +1,5 @@
 import { IExecuteFunctions, IHttpRequestMethods, INodeExecutionData, NodeOperationError } from "n8n-workflow";
-import { ChangeThemeRequestBody, WeatherLocationRequestBody } from "../interfaces/settingsInterfaces";
+import { BackupRequestBody, ChangeThemeRequestBody, WeatherLocationRequestBody } from "../interfaces/settingsInterfaces";
 
 export async function executeSettingFunction(context: IExecuteFunctions): Promise<INodeExecutionData[][]> {
     const items = context.getInputData();
@@ -15,7 +15,7 @@ export async function executeSettingFunction(context: IExecuteFunctions): Promis
             const operation = context.getNodeParameter('operation', i) as string;
             const apexHomeUrl = credentials.url as string;
 
-            let requestBody: ChangeThemeRequestBody | WeatherLocationRequestBody | undefined;
+            let requestBody: ChangeThemeRequestBody | WeatherLocationRequestBody | BackupRequestBody | undefined;
             let endpoint: string;
             let method: IHttpRequestMethods = 'POST';
 
@@ -55,6 +55,15 @@ export async function executeSettingFunction(context: IExecuteFunctions): Promis
                 endpoint = `/api/v1/public/weather-location`;
                 method = 'PUT';
 
+            } else if (operation === 'backup') {
+                const backupPassword = context.getNodeParameter('backupPassword', i) as string;
+
+                requestBody = {
+                    password: backupPassword
+                };
+
+                endpoint = `/api/v1/public/backup`;
+                method = 'POST';
             } else {
                 throw new NodeOperationError(context.getNode(), `The operation "${operation}" is not supported for resource "${resource}"`, { itemIndex: i });
             }
@@ -70,13 +79,31 @@ export async function executeSettingFunction(context: IExecuteFunctions): Promis
                 json: true,
             });
 
-            returnData.push({
-                json: {
-                    success: true,
-                    response,
-                },
-                pairedItem: i,
-            });
+            //Check mimetype of the 
+            if (operation === 'backup') {
+                returnData.push({
+                    json: {
+                        success: true,
+                        response,
+                    },
+                    binary: {
+                        ['data']: {
+                            data: response,
+                            mimeType: 'application/apex',
+                            fileName: 'response.apex',
+                        },
+                    },
+                    pairedItem: i,
+                });
+            } else {
+                returnData.push({
+                    json: {
+                        success: true,
+                        response,
+                    },
+                    pairedItem: i,
+                });
+            }
 
         } catch (error) {
             if (context.continueOnFail()) {
