@@ -45,7 +45,7 @@ export async function executeSettingFunction(context: IExecuteFunctions): Promis
                 // Prepare request body
                 requestBody = {
                     location: {
-                        locationName,
+                        location: locationName,
                         longitude,
                         latitude,
                     },
