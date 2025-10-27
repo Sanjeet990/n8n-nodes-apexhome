@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-apexhome",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"description": "The Apex Home node for n8n allows seamless integration with Apex Home dashboard enabling users to automate and control their instance of Apex Home directly from n8n workflows.",
 	"license": "MIT",
 	"homepage": "",
