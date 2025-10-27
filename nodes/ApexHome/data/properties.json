@@ -241,6 +241,34 @@
     "default": "create"
   },
   {
+    "displayName": "Operation",
+    "name": "operation",
+    "type": "options",
+    "noDataExpression": true,
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "settings"
+        ]
+      }
+    },
+    "options": [
+      {
+        "name": "Change Theme",
+        "value": "changeTheme",
+        "description": "Change the application theme",
+        "action": "Change the application theme"
+      },
+      {
+        "name": "Change Weather Location",
+        "value": "changeLocation",
+        "description": "Modify the weather location settings",
+        "action": "Modify the weather location settings"
+      }
+    ],
+    "default": "changeTheme"
+  },
+  {
     "displayName": "App Name",
     "name": "appName",
     "type": "string",
@@ -799,6 +827,166 @@
         "operation": [
           "create",
           "update"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "Theme",
+    "name": "theme",
+    "type": "options",
+    "options": [
+      {
+        "name": "Light",
+        "value": "light"
+      },
+      {
+        "name": "The Moon",
+        "value": "themoon"
+      },
+      {
+        "name": "Aurora",
+        "value": "aurora"
+      },
+      {
+        "name": "Iceberg",
+        "value": "iceberg"
+      },
+      {
+        "name": "Solar Flare",
+        "value": "solarflare"
+      },
+      {
+        "name": "Europa",
+        "value": "europa"
+      },
+      {
+        "name": "Titan",
+        "value": "titan"
+      },
+      {
+        "name": "Dark",
+        "value": "dark"
+      },
+      {
+        "name": "Deep Space",
+        "value": "deepspace"
+      },
+      {
+        "name": "The Mars",
+        "value": "themars"
+      },
+      {
+        "name": "Cyber Punk",
+        "value": "cyberpunk"
+      },
+      {
+        "name": "Neptune",
+        "value": "neptune"
+      },
+      {
+        "name": "Midnight Rain",
+        "value": "midnightRain"
+      },
+      {
+        "name": "Galactic Dream",
+        "value": "galacticDream"
+      },
+      {
+        "name": "Nebula",
+        "value": "nebula"
+      }
+    ],
+    "default": "dark",
+    "description": "Theme to set for the application",
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "settings"
+        ],
+        "operation": [
+          "changeTheme"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "Location Name",
+    "name": "locationName",
+    "type": "string",
+    "default": "",
+    "placeholder": "New York, USA",
+    "description": "Weather location to set",
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "settings"
+        ],
+        "operation": [
+          "changeLocation"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "Longitude",
+    "name": "longitude",
+    "type": "string",
+    "default": "",
+    "placeholder": "-74.0060",
+    "description": "Longitude of the location",
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "settings"
+        ],
+        "operation": [
+          "changeLocation"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "Latitude",
+    "name": "latitude",
+    "type": "string",
+    "default": "",
+    "placeholder": "40.7128",
+    "description": "Latitude of the location",
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "settings"
+        ],
+        "operation": [
+          "changeLocation"
+        ]
+      }
+    }
+  },
+  {
+    "displayName": "Unit",
+    "name": "unit",
+    "type": "options",
+    "options": [
+      {
+        "name": "Metric",
+        "value": "metric"
+      },
+      {
+        "name": "Imperial",
+        "value": "imperial"
+      }
+    ],
+    "default": "metric",
+    "description": "Unit of measurement",
+    "displayOptions": {
+      "show": {
+        "resource": [
+          "settings"
+        ],
+        "operation": [
+          "changeLocation"
         ]
       }
     }
