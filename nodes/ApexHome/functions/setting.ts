@@ -97,7 +97,6 @@ export async function executeSettingFunction(context: IExecuteFunctions): Promis
                 returnData.push({
                     json: {
                         success: true,
-                        response,
                     },
                     binary: {
                         ['data']: {
